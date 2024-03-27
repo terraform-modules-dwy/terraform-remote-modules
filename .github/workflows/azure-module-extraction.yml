@@ -1,4 +1,4 @@
-name: "module-extration"
+name: "azure-modules-extration"
 on:
   push:
     branches:
