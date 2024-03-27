@@ -3,13 +3,14 @@ on:
   push:
     branches:
      - main
-     - 'terraform-modules/**'
+     - 'terraform-modules/azure/**'
 jobs:
   Module-Extraction:
-    uses: 
+    uses: terraform-modules-dwy/terraform-remote-modules/.github/workflows/extractor.yml@main
     with:
       username: terraform-remote-modules
       organization: terraform-modules-dwy
+      module_path: 'terraform-modules/azure/'
     secrets:
       APP_ID: ${{secrets.APP_ID}}
       APP_PRIVATE_KEY: ${{secrets.APP_PRIVATE_KEY}}
