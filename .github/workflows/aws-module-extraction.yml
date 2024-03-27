@@ -1,0 +1,16 @@
+name: "aws-modules-extration"
+on:
+  push:
+    branches:
+     - main
+     - 'terraform-modules/aws/**'
+jobs:
+  Module-Extraction:
+    uses: terraform-modules-dwy/terraform-remote-modules/.github/workflows/extractor.yml@main
+    with:
+      username: terraform-remote-modules
+      organization: terraform-modules-dwy
+      module_path: 'terraform-modules/aws/'
+    secrets:
+      APP_ID: ${{secrets.APP_ID}}
+      APP_PRIVATE_KEY: ${{secrets.APP_PRIVATE_KEY}}
