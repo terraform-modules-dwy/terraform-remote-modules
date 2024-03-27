@@ -4,9 +4,10 @@ on:
     branches:
      - main
     paths:
-     - 'terraform-modules/aws/**.zip'
+     - 'terraform-modules/aws/**'
 jobs:
   Module-Extraction:
+    if: "contains(github.event.head_commit.message, 'module is created in the terraform remote repository.')"
     uses: terraform-modules-dwy/terraform-remote-modules/.github/workflows/extractor.yml@main
     with:
       username: terraform-remote-modules
