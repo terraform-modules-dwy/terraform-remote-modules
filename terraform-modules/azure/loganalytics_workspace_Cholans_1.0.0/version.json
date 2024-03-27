@@ -1,0 +1,10 @@
+{
+    "modules":[
+        {
+            "name": "loganalytics_workspace",
+            "version": "1.0.0",
+            "project" : "Cholans",
+            "cloudprovider": "azure"
+        }
+    ]
+}
