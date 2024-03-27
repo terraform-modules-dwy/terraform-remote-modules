@@ -1,0 +1,56 @@
+name: "extractor"
+on:
+  workflow_call:
+    inputs:
+      username:
+        description: 'github username'
+        required: true
+        type: string
+      organization:
+         description: 'github organization'
+         required: true
+         type: string
+    secrets:
+      APP_ID:
+        description: 'Github app id'
+        required: true
+      APP_PRIVATE_KEY:
+        description: 'Github app private key'
+        required: true
+jobs:
+  Extract:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform-module
+        
+    steps:
+      - name: Get Token
+        id: get_actions_token
+        uses: peter-murray/workflow-application-token-action@v3
+        with:
+          application_id: ${{secrets.APP_ID}}
+          application_private_key: ${{secrets.APP_PRIVATE_KEY}}
+          organization: ${{inputs.organization}}
+          
+      - name: Checkout Action
+        uses: actions/checkout@v4
+        with:
+          token: ${{steps.get_actions_token.outputs.token}}
+
+      - name: UnZip modules
+        shell: pwsh
+        run: |
+          Get-ChildItem -Filter *.zip | ForEach-Object {Expand-Archive $_.FullName "$($_.Basename)" -Force}
+          Get-ChildItem -Filter *.zip | Remove-item -Force
+          
+      - name: Push Code
+        run: |
+          git config --global user.name "${{inputs.username}}[bot]"
+          git config --global user.email "${{secrets.APP_ID}}${{inputs.username}}[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Unziped the module successfully."
+          git push origin main
+        continue-on-error: true
+
+      
