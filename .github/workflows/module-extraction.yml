@@ -1,0 +1,15 @@
+name: "module-extration"
+on:
+  push:
+    branches:
+     - main
+     - 'terraform-modules/**'
+jobs:
+  Module-Extraction:
+    uses: 
+    with:
+      username: terraform-remote-modules
+      organization: terraform-modules-dwy
+    secrets:
+      APP_ID: ${{secrets.APP_ID}}
+      APP_PRIVATE_KEY: ${{secrets.APP_PRIVATE_KEY}}
