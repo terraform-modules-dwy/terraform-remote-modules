@@ -3,7 +3,8 @@ on:
   push:
     branches:
      - main
-     - 'terraform-modules/azure/**'
+    paths:
+     - 'terraform-modules/azure/'
 jobs:
   Module-Extraction:
     uses: terraform-modules-dwy/terraform-remote-modules/.github/workflows/extractor.yml@main
