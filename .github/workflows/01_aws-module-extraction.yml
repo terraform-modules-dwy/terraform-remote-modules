@@ -1,4 +1,4 @@
-name: "aws-modules-extration"
+name: "01-aws-modules-extration"
 on:
   push:
     branches:
