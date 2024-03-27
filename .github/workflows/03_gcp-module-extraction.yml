@@ -1,4 +1,4 @@
-name: "gcp-modules-extraction"
+name: "03_gcp-modules-extraction"
 on:
   push:
     branches:
