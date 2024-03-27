@@ -10,6 +10,10 @@ on:
          description: 'github organization'
          required: true
          type: string
+      module_path:
+         description: 'module path'
+         required: true
+         type: string
     secrets:
       APP_ID:
         description: 'Github app id'
@@ -22,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: terraform-module
+        working-directory: ${{inputs.module_path}}
         
     steps:
       - name: Get Token
