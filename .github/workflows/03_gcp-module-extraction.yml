@@ -4,7 +4,7 @@ on:
     branches:
      - main
     paths:
-     - 'terraform-modules/gcp/**'
+     - 'terraform-modules/gcp/**.zip'
 jobs:
   Module-Extraction:
     uses: terraform-modules-dwy/terraform-remote-modules/.github/workflows/extractor.yml@main
