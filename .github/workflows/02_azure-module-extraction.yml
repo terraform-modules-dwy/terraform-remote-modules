@@ -7,6 +7,7 @@ on:
      - 'terraform-modules/azure/**'
 jobs:
   Module-Extraction:
+    if: "contains(github.event.head_commit.message, 'module is created in the terraform remote repository.')"
     uses: terraform-modules-dwy/terraform-remote-modules/.github/workflows/extractor.yml@main
     with:
       username: terraform-remote-modules
