@@ -13,3 +13,36 @@ Extractor-Reusable pipeline: this contains the logic to unzip the modules and cr
 **Execution Diagram:**
 
 ![image](https://github.com/terraform-modules-dwy/terraform-remote-modules/assets/156210181/e3a63af9-79b7-4ef0-a1c9-98937d78e8d8)
+
+
+#### How to use remote modules:
+Create *.tfvars file in which you can pass your inputs 
+```
+resource_groups = [
+  {
+    name = "rg-integrations-zone"
+    location = "east-us"
+    tags = {
+        environment = "dev"
+     }
+  },
+  {
+    name = "rg-datafactory-zone"
+    location = "east-us"
+    tags = {
+        environment = "dev"
+     }
+  }
+]
+```
+
+```
+remote module url ➡️ github.com/<ORGANIZATION_NAME>/<REMOTE_REPOSITORY_NAME>/<FOLDER_NAME>/azure/resource_group_Cholans_<VERSION>
+module "azure_resource_group" {
+  source = "github.com/terraform-modules-dwy/terraform-remote-modules/terraform-modules/azure/resource_group_Cholans_1.0.0"
+  for_each = {for rg in var.resource_groups : rg.name => rg}
+  name =  each.value.name
+  location =  each.value.location
+  tags = each.value.tags
+}
+```
